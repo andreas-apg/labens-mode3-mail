@@ -32,11 +32,8 @@ def insertInverters(DBPath):
         files = cur.fetchall()
 
         for file in files:
-            #print(file[1]+'-'+file[2])
-            #print(file)
             try:
                 cur = conn.cursor()
-                #cur.execute("INSERT INTO inverters (inv_name, file, status) VALUES (:inv_name, :file, :status);", {'inv_name':(file[1]+'-'+file[2]), 'file': file[0], 'status': 0})
                 cur.execute("INSERT INTO inverters (file, status) VALUES (:file, :status);", {'file': file[0], 'status': 0})
             except Exception as e:
                 print(e)
@@ -60,7 +57,7 @@ def checkMode3(DBPath):
         for file in files:
             cur.execute("SELECT measure_time, last_update_in_s FROM updates WHERE file_id = :file ORDER BY id DESC LIMIT 1",{'file':file[0]})
             result = cur.fetchone()
-            time = datetime.datetime.utcnow()# - timedelta(hours = 2)
+            time = datetime.datetime.utcnow()
             measure_time = datetime.datetime.strptime(result[0],'%Y-%m-%dT%H:%M:%S')            
             no_update_time = int((time-measure_time).total_seconds() + result[1])   
             # we only need files that are still being updated
@@ -81,7 +78,7 @@ def checkMode3(DBPath):
                     # setting the timestamp as the index to avoid DatetimeIndex errors.
                     frame = frame.set_index(pd.DatetimeIndex(frame['timestamp_iso']))
                     #frame.dropna(inplace=True)
-                    if '11:00' <= time.strftime('%H:%M') <= '24:00': # times in UTC  12 19
+                    if '12:00' <= time.strftime('%H:%M') <= '19:00': # times in UTC
                         frame = frame.between_time((time - timedelta(hours = 1)).strftime('%H:%M'), time.strftime('%H:%M'))
                         num_lines = len(frame)
                         num_mod3 = len(frame.query('mod == 3'))
