@@ -1,0 +1,52 @@
+<table width="100%" bgcolor="#eeeeee" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" cellspacing="0" cellpadding="0">
+  <tr width="100%">
+    <td>
+      <img src="https://geracao.labens.ct.utfpr.edu.br/static/img/labens-email.png" title="LABENS" alt="LABENS logo" style="display: block; height: 50px; margin: 15px auto 5px auto;" />
+    </td>
+  </tr>
+  <tr width="100%">
+    <td>
+      <table bgcolor="#ffffff" width="95%" style="margin: 5px auto; border-radius: 25px;">
+        <tr style="display:block; margin: 25px 30px;">
+          <td>
+            <p>Olá.</p>
+            <p>Foram detectados possíveis problemas de comunicação na rede RS485 de inversores de EPESOL.</p>
+            <p> Os inversores envolvidos não responderam às requisições de dados em mais de 60% das tentativas de coleta realizadas na última hora.
+</p>
+            <p>Verifique a disponibilidade de luz solar no dia e se os inversores não apresentam defeito.</p>
+            
+            <p>
+              Estas são as tabelas que apresentaram o problema:
+            </p>
+          </td>
+        </tr>
+        <tr style="display:block;">
+          <td style="display: block;">
+            <table width="100%" style="text-align: center; font-size: 21px;">
+              {% for tabela in tabelas %}
+              <tr>
+                <td>
+                  {{ tabela }}
+                </td>
+              </tr>
+              {% endfor %}
+            </table>
+          </td>
+        </tr>
+        <tr style="display:block; margin: 25px 30px;">
+          <td>
+            <p>Mais detalhes no site <a href="https://geracao.labens.ct.utfpr.edu.br/envios">https://geracao.labens.ct.utfpr.edu.br/envios</a></p>
+            <p>Acesse o link acima para desativar o alarme para esse(s) arquivo(s). Novos e-mais serão enviados a cada hora até que o problema seja resolvido ou o alarme seja desligado.</p>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+  <tr>
+    <td style="text-align: center; margin-bottom: 15px; display: block">
+      Universidade Tecnológica Federal do Paraná<br />
+      Campus Curitiba<br />
+      Laboratório de Energia Solar
+    </td>
+  </tr>
+</table>
