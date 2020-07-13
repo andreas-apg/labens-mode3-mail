@@ -3,7 +3,6 @@ import sqlite3
 import datetime
 from datetime import timedelta
 import pandas as pd
-from sys import platform
 import mail
 import settings
 
@@ -74,8 +73,6 @@ def checkMode3(DBPath):
                     path = "{:04}/{:02}/inversores/poli/".format(time.year, time.month)
                 else:
                     path = "{:04}/{:02}/inversores/{}/".format(time.year, time.month, file[2])
-                if platform == 'win32':
-                    path = path.replace('/', '\\')
                 try:
                     # read_csv may fail to read the file for various reasons, outputting an error.
                     # csv is accessed by grouping root, rebuilt path and rebuilt filename proper
@@ -127,10 +124,10 @@ def checkMode3(DBPath):
     return errorTables
     
 def main():
-    createInverters(settings.DBPath+'\\database.db')
-    insertInverters(settings.DBPath+'\\database.db')
+    createInverters(settings.DBPath+'/database.db')
+    insertInverters(settings.DBPath+'/database.db')
     
-    files = checkMode3(settings.DBPath+'\\database.db')
+    files = checkMode3(settings.DBPath+'/database.db')
 
     if not files == []:
         mailAddresses = mail.getMailAddresses()
